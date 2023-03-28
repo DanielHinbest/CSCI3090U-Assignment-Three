@@ -155,6 +155,13 @@
     <ClInclude Include="texture.h" />
     <ClInclude Include="tiny_obj_loader.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="cube.fs" />
+    <None Include="cube.vs" />
+    <None Include="example12a.fs" />
+    <None Include="example12a.vs" />
+    <None Include="random.fs" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
