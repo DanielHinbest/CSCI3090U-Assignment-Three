@@ -1,5 +1,5 @@
 /*
- *  Simple fragment sharder for Example 10
+ *  Simple fragment sharder for Example 12
  */
 
 #version 330 core
@@ -12,11 +12,13 @@ uniform vec4 colour;
 uniform vec3 Eye;
 uniform vec3 light;
 uniform vec4 material;
+uniform float refractiveIndex;
 
 void main() {
 	vec3 tc;
-	
-	tc = reflect(position - Eye, normal);
-	gl_FragColor = texture(tex,tc);
+	vec3 V = normalize(Eye - position);
+
+	tc = refract(V, normal, refractiveIndex);
+	gl_FragColor = texture(tex, tc);
 
 }
