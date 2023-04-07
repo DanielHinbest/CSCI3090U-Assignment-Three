@@ -14,16 +14,9 @@ uniform vec3 light;
 uniform vec4 material;
 
 void main() {
-    vec3 viewDir = normalize(Eye - position);
-    vec3 reflectDir = reflect(viewDir, normalize(normal));
-    vec3 refractDir = refract(viewDir, normalize(normal), material.w);
+	vec3 tc;
+	
+	tc = reflect(position - Eye, normal);
+	gl_FragColor = texture(tex,tc);
 
-    float reflectFactor = pow(max(dot(reflectDir, viewDir), 0.0), material.z);
-    float refractFactor = 1.0 - reflectFactor;
-
-    vec4 reflectColor = texture(tex, reflectDir);
-    vec4 refractColor = texture(tex, refractDir);
-
-    vec4 finalColor = reflectColor * reflectFactor + refractColor * refractFactor;
-    gl_FragColor = mix(colour, finalColor, material.y);
 }
