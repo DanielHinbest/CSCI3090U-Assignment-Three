@@ -44,6 +44,7 @@ GLuint objBuffer;
 GLuint cubeBuffer;
 int triangles;
 GLuint envMap;
+GLuint irrMap;
 
 /*
  *  Create a cube object that will be the background
@@ -133,6 +134,7 @@ void init() {
 	double x, y, z;
 	double theta, phi;
 	struct Cube *texture;
+	struct Cube* irrTexture;
 
 	glGenVertexArrays(1, &objVAO);
 	glBindVertexArray(objVAO);
@@ -242,7 +244,27 @@ void init() {
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
-
+	/*
+	 *  Call loadCube to load a cube texture that will
+	 *  be used as our irradiance map.
+	 */
+#ifdef WIN32
+	irrTexture = loadCube("../../../VancouverConventionCentre/irradiance");
+#else
+	irrTexture = loadCube((char*)(char*)"VancouverConventionCentre/irradiance");
+#endif
+	glGenTextures(1, &irrMap);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, irrMap);
+	for (i = 0; i < 6; i++) {
+		glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGBA, irrTexture->width, irrTexture->height,
+			0, GL_RGB, GL_UNSIGNED_BYTE, irrTexture->data[i]);
+	}
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 }
 
 void framebufferSizeCallback(GLFWwindow *window, int w, int h) {
