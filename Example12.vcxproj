@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="example12c.vs" />
     <ClCompile Include="Shaders.cpp" />
     <ClCompile Include="texture.cpp" />
     <ClCompile Include="tiny_obj_loader.cc" />
@@ -160,6 +161,9 @@
     <None Include="cube.vs" />
     <None Include="example12a.fs" />
     <None Include="example12a.vs" />
+    <None Include="example12b.fs" />
+    <None Include="example12b.vs" />
+    <None Include="example12c.fs" />
     <None Include="random.fs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

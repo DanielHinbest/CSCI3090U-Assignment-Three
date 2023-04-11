@@ -138,8 +138,6 @@ void init() {
 
 	glGenVertexArrays(1, &objVAO);
 	glBindVertexArray(objVAO);
-	program = LoadShaders("vertex.glsl", "random.fs");
-	glUseProgram(program);
 
 	/*  Load the obj file */
 
